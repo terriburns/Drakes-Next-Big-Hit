@@ -187,6 +187,9 @@ def print_lyrics(lyrics):
     count += 1
     if count % 10 ==0:
       output.write("\n")
+    if count % 75 == 0:
+        output.write("\n[CHORUS]\n")
+        output.write(words)
   output.close()
 
 def split(s, n):
