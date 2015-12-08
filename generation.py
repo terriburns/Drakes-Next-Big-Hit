@@ -3,23 +3,15 @@ import random
 import operator
 from nltk import pos_tag, word_tokenize
 
-#replace hmm tagger with word generation
-#make more functional
-#use NLTK to apply pos to words
-#format so it actually has lines
 #chorus???
 #rhymme???
 #title???
-#remove unused dicts
 
 prior_probs_dict = {} #number of occurrences for each prior prior probability pair
 total_pos = {} #total number of occurrences for each pos
 pos_dict = {} #dict of dicts that contains each part of speech, the words that make up those parts of speech, and number of each occurrence for each word
 word_dict = {} #dictionary of words and occurrences of each corresponding pos
 subsequent_dict = {} #dictionary of probabilities. showcases the likelihood of a given pos following another pos
-likelihood_dict = {}
-final_dict = {}
-occurrences_of_word = 0
 count = 0
 pos_count = 0
 pos_count_2 = 0
@@ -51,7 +43,6 @@ def pos_lyrics(input_file):
 def probabilities(line):
   pos_count = 0
   pos_count_2 = 0
-  likelihood_count = 0
   hmm_count = 0
   count = 0
   #find prior probabilities and add to a dictionary
@@ -122,26 +113,9 @@ def probabilities(line):
     if len(line) == pos_count_2:
       pos_count_2 = 0
       break
-
-  #make and print likelihood table
-  likelihood_dict = {}
-  for pos in pos_dict:
-    likelihood_dict[pos] = {}
-    for word in pos_dict[pos]:
-      occurrences_of_word_in_pos = pos_dict[pos][word]
-      occurrences_of_pos = len(pos_dict[pos])
-      likelihood = occurrences_of_word_in_pos/float(occurrences_of_pos)
-      #for words not in the training corpus, likelihood = least likely pos
-      if likelihood_count == 0:
-        notFoundlikelihood = likelihood
-        likelihood_count += 1
-      if likelihood < notFoundlikelihood:
-        notFoundLikelihood = likelihood
-      likelihood_dict[pos][word] = likelihood
- 
 def lyrics():
   lyrics = []
-  total_words = 0 #no more than 200 words/song
+  total_words = 0 #no more than 250 words/song
   count = 0
   #hardcode it so that first word is a noun, yolo
   for word in pos_dict:
@@ -154,17 +128,21 @@ def lyrics():
         if (count ==1):
           count = 0
           break
-  while total_words != 200:
+  while total_words != 250:
+    pick = []
     #based on the first word, come up with the other words!
-    #determine most likely pos for current word
+    
+    #determine POS for current word
     current_word = lyrics[total_words]
     pos_of_current_word = max(word_dict[current_word].iteritems(), key=operator.itemgetter(1))[0] + " "
-    print("pos of current word: " + pos_of_current_word)
-    #determine most likely pos for next word
-    full_pos = max(subsequent_dict[pos_of_current_word], key=subsequent_dict[pos_of_current_word].get)
+    
+    #determine top two possible POS for subsequent word
+    pos_options = dict(sorted(subsequent_dict[pos_of_current_word].iteritems(), key=operator.itemgetter(1), reverse=True)[:2])
+    #pick one at random
+    full_pos = random.choice(pos_options.keys())
     length_of_old_pos = len(pos_of_current_word) + 3
     pos_of_next_word = split(full_pos, length_of_old_pos)
-    print("pos of next word: [" + pos_of_next_word +"]")
+    
     #generate a random word from the list of words for that given part of speech
     for word in pos_dict:
       if (word + " ") == pos_of_next_word:
@@ -182,15 +160,36 @@ def lyrics():
 def print_lyrics(lyrics):
   output = open("newsong.txt", "w")
   count = 0
+  #hardcode title to be first three words
+  title = lyrics[:3]
+  #hardcode chorus to be next 50 words
+  chorus = lyrics[3:53]
+  #hardcode verses to be remaining
+  verses = lyrics[53:]
+  output.write("TITLE:")
+  for words in title:
+    output.write(words + " ")
+  output.write("\n\n")
+  print_chorus(chorus, output)
   for words in lyrics:
     output.write(words + " ")
     count += 1
     if count % 10 ==0:
       output.write("\n")
-    if count % 75 == 0:
-        output.write("\n[CHORUS]\n")
-        output.write(words)
+    elif count % 83 == 0:
+      output.write("\n\n")
+      print_chorus(chorus, output)
   output.close()
+
+
+def print_chorus(words_in_chorus, output):
+  count = 0
+  output.write("CHORUS:")
+  for words in words_in_chorus:
+    output.write(words + " ")
+    count += 1
+    if count % 10 ==0:
+      output.write("\n")
 
 def split(s, n):
   return s[n:]
