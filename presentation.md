@@ -20,7 +20,7 @@ Can a computer program generate lyrics that could have reasonably been written b
 
 2. I then calculate the prior/transition probabilities for each POS
 
-3. When generating the new song, I use the previous word to determine the most likley subsequent POS. I then look at a dictionary for that given POS containing words formerly used by that artists, and randomly selection one.
+3. When generating the new song, I use the previous word to determine the most likley subsequent POS. I then look at a dictionary for that given POS containing words formerly used by that artists, and randomly select one.
 
 ---
 
