@@ -32,7 +32,7 @@ def pos_lyrics(input_file):
   text = f_read.read()
   list_of_pos = pos_tag(word_tokenize(text))
   for word in list_of_pos:
-      f_write.write(word[0] + "  " + word[1] + "\n")
+      f_write.write(word[0].lower() + "  " + word[1] + "\n")
   f_read.close()
   f_write.close()
 
