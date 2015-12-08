@@ -12,27 +12,29 @@ If you'd like to test it out on other artists, replace the input(`oldsongs.txt`)
 
 `oldsong.txt` is a training corpus that contains the lyrics to the following songs, in order (including title)
 
-[Take Care](https://play.spotify.com/album/63WdJvk8G9hxJn8u5rswNh?play=true&utm_source=open.spotify.com&utm_medium=open)
+[Take Care](https://play.spotify.com/album/63WdJvk8G9hxJn8u5rswNh?play=true&utm_source=open.spotify.com&utm_medium=open), line 1
 
-[Marvin's Room](https://play.spotify.com/track/2z3htsNRuhDN923ITatc56?play=true&utm_source=open.spotify.com&utm_medium=open)
+[HYFR](https://play.spotify.com/track/0m1KYWlT6LhFRBDVq9UNx4), line 71
 
-[HYFR](https://play.spotify.com/track/0m1KYWlT6LhFRBDVq9UNx4)
+[Shot for Me](https://play.spotify.com/track/6k7b4mcxLP5HPo6hNoXoM6?play=true&utm_source=open.spotify.com&utm_medium=open), line 173
 
-[Shot for Me](https://play.spotify.com/track/6k7b4mcxLP5HPo6hNoXoM6?play=true&utm_source=open.spotify.com&utm_medium=open)
+[Back to Back](https://play.spotify.com/track/6Q2F6SCi5jrPUCS2m1vPa6), line 225
 
-[Back to Back](https://play.spotify.com/track/6Q2F6SCi5jrPUCS2m1vPa6)
+[Hotline Bling](https://play.spotify.com/album/19YQ10twgD5djBaBDUpH7o), line 288
 
-[Hotline Bling](https://play.spotify.com/album/19YQ10twgD5djBaBDUpH7o)
+[6PM in New York](https://play.spotify.com/track/0KPUIYMqfLBvpRCwZ9hpFs), line 363
 
-[6PM in New York](https://play.spotify.com/track/0KPUIYMqfLBvpRCwZ9hpFs)
+[Sweeterman](https://www.youtube.com/watch?v=L8mu13y1itU), line 465
 
-[Sweeterman](https://www.youtube.com/watch?v=L8mu13y1itU)
+[Hold On, We're Going Home](https://play.spotify.com/track/0FyBloIEdLS3f3SodFiju1?play=true&utm_source=open.spotify.com&utm_medium=open), line 540
 
-[Hold On, We're Going Home](https://play.spotify.com/track/0FyBloIEdLS3f3SodFiju1?play=true&utm_source=open.spotify.com&utm_medium=open)
+[From Time](https://play.spotify.com/track/10VBBaul4zVD0reteuIHM2?play=true&utm_source=open.spotify.com&utm_medium=open), line 604
 
-These songs were picked because they are some of my favorite Drake songs. They are in semi-random order.
+[Headlines](://play.spotify.com/album/2YLE9V9JI8WaDgbyuuJHnU?play=true&utm_source=open.spotify.com&utm_medium=open), line 604
 
-##Notes for Class
+These songs were picked because they are some of my favorite Drake songs. They are in semi-random order. Note that some of these songs feature other artists, and the lyrics have not been filtered to reflect Drake's verses exclusively. All commas have been removed from the lyrics as well.
+
+##Background, Context, and Other Information
 
 ####My approach & observations, as noted in `presentation.md`:
 
@@ -97,9 +99,9 @@ If the test corpus returns that 95% of verbs are followed by nouns, and 5% of ve
 
 For a while, my program was spitting out loops of words that were `VBP` (verb, non-3rd person singular present) followed by `PRP` (personal pronoun) followed by `VBP` and so on. This was happening because `PRP` was the most likely word to follow `VBP` and vice-versa. By randomizing between two possibilities, it (theoretically) keeps the output grammatically correct but more diverse.
 
-**###2) Word Diversity**
+**2) Word Diversity**
 
-On the note of diversity, by alternating between options, there's a much greater range of possible words that can follow any preexisting one. Most importantly, there is greater diversity but a maintenance of style and type of words used. This optimizes the goal of the assignment.
+On the note of diversity, by alternating between options, there's a much greater range of possible words that can follow any preexisting one. Most importantly, there is greater diversity but a maintenance of style and type of words used. With the Pick One implementation, resulting part of speech pattern would always be the same. With Top Two, it regularly changes. This optimizes the goal of the assignment.
 
 ####The Best Implementation... For another Time
 
@@ -117,8 +119,32 @@ The new song would reflect the same part of speech output as well. Maybe I can t
 
 ##Conclusion
 
-The current output of my program is pretty mediocre. 
+####The results
 
-#References
+The current output of my program is *okay*. A good portion of the output is grammatically correct, but still nonsensical. Some of the output would make more sense if there was more punctuation to clarify it's intent (more on this below).  Some of the output does not make any sense at all.  As it stands, the training corpus has ten songs.  I tested the output of the program on the addition of each song, one at a time, and the results gradually improved greatly. If I were to train the program using every song that Drake has ever released, I hypothesize that the output would be much better.
 
-A Survey of Natural Language Generation Systems + Rap Lyrics by Janette Martinez
+####Punctuation
+
+NLTK's part of speech tagger takes into account/parses punctuation.  My program, as it stands, takes every token from the part of speech tagger and interprets it as a word.  The most common punctuation mark in `oldsong.txt` was a comma. The regular occurrence of the comma resulted in the output to have what should have been actual words be comma. I opted to remove all commas from `oldsong.txt`.
+
+That being said, there are still periods and question marks, which are interpreted in the program as words. Because these occurrences are much less frequent, and in a notable number of circumstances, their positions could have been interpreted as intentional, I decided to keep some punctuation. This is an imperfect solution, but I think it works for the time being.
+
+####Improvements
+
+*A summary of the aforementioned improvements*
+
+1. Implementing an algorithm that results in prior probabilities reflective of the training corpus.
+
+2. Implementing an algorithm that better accounts for various types of punctuation.
+
+3. Implementing an algorithm that can handle exponentially greater training data.
+
+####The End
+
+![Image of Drake](http://www.etonline.com/news/2015/10/24187336/set_drake_hotling_bling_video-640.jpg)
+
+##References
+
+>A Survey of Natural Language Generation Systems + Rap Lyrics by Janette Martinez
+
+>Lyrics obtained through [Google Play](https://play.google.com/store?hl=en) and [Genius](http://genius.com/)
