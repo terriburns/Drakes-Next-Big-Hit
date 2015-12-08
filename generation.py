@@ -3,10 +3,6 @@ import random
 import operator
 from nltk import pos_tag, word_tokenize
 
-#chorus???
-#rhymme???
-#title???
-
 prior_probs_dict = {} #number of occurrences for each prior prior probability pair
 total_pos = {} #total number of occurrences for each pos
 pos_dict = {} #dict of dicts that contains each part of speech, the words that make up those parts of speech, and number of each occurrence for each word
@@ -19,14 +15,14 @@ pos_count_2 = 0
 def main():
   #use nltk to determine parts of speech for old songs, write to "oldsong.pos"
   pos_lyrics("oldsong.txt")
-
   input_file = open("oldsong.pos", "r")
   text = input_file.read()
   line = text.split()
 
-  #establish the probabilites in "oldsong.pos"
+  #calcuate prior probabilites in "oldsong.pos"
   probabilities(line)
-  #add each word in lyrics lyrics to a list
+  
+  #add each word in lyrics to a list and return it
   the_song = lyrics()
   print_lyrics(the_song) #you know what to do
 
@@ -171,6 +167,7 @@ def print_lyrics(lyrics):
     output.write(words + " ")
   output.write("\n\n")
   print_chorus(chorus, output)
+  output.write("\n\n")
   for words in lyrics:
     output.write(words + " ")
     count += 1
@@ -179,6 +176,7 @@ def print_lyrics(lyrics):
     elif count % 83 == 0:
       output.write("\n\n")
       print_chorus(chorus, output)
+      output.write("\n\n")
   output.close()
 
 
