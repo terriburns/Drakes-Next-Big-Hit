@@ -30,7 +30,7 @@ If you'd like to test it out on other artists, replace the input(`oldsongs.txt`)
 
 [From Time](https://play.spotify.com/track/10VBBaul4zVD0reteuIHM2?play=true&utm_source=open.spotify.com&utm_medium=open), line 604
 
-[Headlines](://play.spotify.com/album/2YLE9V9JI8WaDgbyuuJHnU?play=true&utm_source=open.spotify.com&utm_medium=open), line 604
+[Headlines](https://play.spotify.com/album/2YLE9V9JI8WaDgbyuuJHnU?play=true&utm_source=open.spotify.com&utm_medium=open), line 681
 
 These songs were picked because they are some of my favorite Drake songs. They are in semi-random order. Note that some of these songs feature other artists, and the lyrics have not been filtered to reflect Drake's verses exclusively. All commas have been removed from the lyrics as well.
 
