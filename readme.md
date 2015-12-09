@@ -32,27 +32,31 @@ If you'd like to test it out on other artists, replace the input(`oldsongs.txt`)
 
 [Headlines](https://play.spotify.com/album/2YLE9V9JI8WaDgbyuuJHnU?play=true&utm_source=open.spotify.com&utm_medium=open), line 681
 
-These songs were picked because they are some of my favorite Drake songs. They are in semi-random order. Note that some of these songs feature other artists, and the lyrics have not been filtered to reflect Drake's verses exclusively. All commas have been removed from the lyrics as well.
+These songs were picked because they are some of my favorite Drake songs. They are in semi-random order by preference. Note that some of these songs feature other artists, and the lyrics have not been filtered to reflect Drake's verses exclusively. All commas have been removed from the lyrics as well.
 
 ##Background, Context, and Other Information
 
 ####My approach & observations, as noted in `presentation.md`:
 
-1. I use NLTK to do part of speech tagging for each word in `oldsong.txt`, the training corpus, which is a document of lyrics of former songs
+1. I use NLTK to do part of speech tagging for each word in `oldsong.txt` (the lyrics).
 
 2. I then calculate the prior/transition probabilities for each part of speech
 
-3. When generating the new song, I use the previous word to determine the most likley subsequent part of speech (more on this below). I then look at a dictionary for that given part of speech containing words formerly used by that artists, and randomly select one.
+3. When generating the new song, I use the previous word to determine the most likley subsequent part of speech (more on this below). I then look at a dictionary for that given part of speech containing words formerly used by that artist, and randomly select a word from the dictionary.
+
+4. Repeat until song is done.
 
 ####Implementation
 
 *Keeping it original while maintaining the essence of the artist.*
 
-When building this program, there were a number of factors I needed to consider in order for me to be relatively pleased with the results. I debated whether or not to exclusively use words from `oldsong.txt`, the training corpus for the output in  `newsong.txt.` Ultimately, for the sake of time, I opted to only use words that had been used before, but I would argue that it might be more effective/original to also include other common possible words (perhaps words commonly used in modern rap today that just happen to not occur in `oldsong.txt`).  To help create results that seemed more original but still stick to the essence of the artist, I opted to include more text in `oldsong.txt`, the training corpus. Though it takes much longer to run the program this way, the possibilities for newly generated songs increase exponentially.
+When building this program, there were a number of factors I needed to consider in order for me to be relatively pleased with the results. I debated whether or not to exclusively use words from the training corpus (`oldsong.txt`), for the output in  `newsong.txt.` Ultimately, for the sake of time, I opted to only use words that had been used before, but I would argue that it might be more effective/original to also include other common possible words (perhaps words commonly used in modern/pop rap that just happen to not occur in `oldsong.txt`).  
+
+To help create results that seemed more original but still stuck to the essence of the artist, I opted to include more text in the training corpus. Though it takes much longer to run the program this way, the possibilities for newly generated songs increase exponentially (more on this below).
 
 *Determining best word to generate.*
 
-I spend quite a bit of time contemplating how to feasibly and most effectively generate words. Throughout this course, we've learned about part of speech tagging, prior probabilities, likelihoods, HMM Taggers, etc., all used as tools to build various types of language processing programs.  With this in mind, I decided to generate words based on determining the most likely subsequent part of speech, and picking a word at random that fits that part of speech. I ended up doing this in two different ways, and my current implementation is the second:
+I spent quite a bit of time contemplating how to feasibly and most effectively generate words. Throughout this course, we've learned about part of speech tagging, prior probabilities, likelihoods, HMM Taggers, etc., all used as tools to build various types of natural language processing programs.  With this in mind, I decided to generate words based on determining the most likely subsequent part of speech, and picking a word at random that fits that part of speech. I ended up doing this in two different ways, and my current implementation is the second:
 
 ####The first implementation: the "Pick One" Implementation
 
@@ -87,7 +91,7 @@ for all verbs
   30% are followed by adjectives
 ```
 
-The new song generator would see that the top two most likely subsequent parts of speech are nouns and verbs. The generator would then randomly select either noun or verb to be the part of speech for the subsequent word, and select a word at random based on that. In this example, this is more effective because random selection between two options tends to generate 50/50 results. 50% for nouns is closer to 70% than (as per the Pick One implementation) 100%, and 50% for verbs is closer to 30% than 0. So in this example, the new song would most likely suggest that:
+The new song generator would see that the top two most likely subsequent parts of speech are nouns and verbs. The generator would then randomly select either a noun or a verb to be the part of speech for the subsequent word, and select a word at random based on that. In this example, this is more effective because random selection between two options tends to generate 50/50 results. So in this example, the new song would most likely suggest that:
 
 ```
 for all verbs
@@ -95,7 +99,7 @@ for all verbs
   50% are followed by adjectives
 ```
 
-In many cases, it's proven that Top Two is more effective, but in certain circumstances it does have it's drawbacks. For example:
+50% for nouns is closer to 70% than (as per the Pick One implementation) 100%, and 50% for verbs is closer to 30% than 0. In many cases, it's proven that Top Two is more effective, but in certain circumstances it does have it's drawbacks. For example:
 
 If the test corpus returns that 95% of verbs are followed by nouns, and 5% of verbs are followed by adjectives, a random selection between noun vs adjective will again, tend to 50/50 results. In practice, the results would have been more accurate had nouns followed verbs 100% of the time rather than 50, as per the Pick One implementation.
 
@@ -107,7 +111,7 @@ For a while, my program was spitting out loops of words that were `VBP` (verb, n
 
 **2) Word Diversity**
 
-On the note of diversity, by alternating between options, there's a much greater range of possible words that can follow any preexisting one. Most importantly, there is greater diversity but a maintenance of style and type of words used. With the Pick One implementation, resulting part of speech pattern would always be the same. With Top Two, it regularly changes. This optimizes the goal of the assignment.
+On the note of diversity, by alternating between options, there's a much greater range of possible words that can follow any preexisting one. Most importantly, there is greater diversity but a maintenance of style and type of words used. With the Pick One implementation, resulting part of speech pattern would always be the same. With Top Two, the resulting part of speech pattern regularly changes. This optimizes the goal of the assignment.
 
 ####The Best Implementation... For another Time
 
