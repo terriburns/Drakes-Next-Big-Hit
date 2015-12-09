@@ -69,7 +69,7 @@ for all verbs
 The new song generator would see that it is *most likely* that a noun follows a verb, and such, would always assign a noun to follow a verb when generating the new song. The result of which was that the new song generated would have prior probabilities/likelihoods different from the training corpus. Using my example, the new song would have:
 
 ```
-for all Verbs
+for all verbs
   100% are followed by Nouns
 ```
 
@@ -87,7 +87,13 @@ for all verbs
   30% are followed by adjectives
 ```
 
-The new song generator would see that the top two most likely subsequent parts of speech are nouns and verbs. The generator would then randomly select either noun or verb to be the part of speech for the subsequent word, and select a word at random based on that. In this example, this is more effective because random selection between two options tends to generate 50/50 results. 50% for nouns is closer to 70% than (as per the Pick One implementation) 100%, and 50% for verbs is closer to 30% than 0. 
+The new song generator would see that the top two most likely subsequent parts of speech are nouns and verbs. The generator would then randomly select either noun or verb to be the part of speech for the subsequent word, and select a word at random based on that. In this example, this is more effective because random selection between two options tends to generate 50/50 results. 50% for nouns is closer to 70% than (as per the Pick One implementation) 100%, and 50% for verbs is closer to 30% than 0. So in this example, the new song would most likely suggest that:
+
+```
+for all verbs
+  50% are followed by nouns
+  50% are followed by adjectives
+```
 
 In many cases, it's proven that Top Two is more effective, but in certain circumstances it does have it's drawbacks. For example:
 
@@ -105,9 +111,7 @@ On the note of diversity, by alternating between options, there's a much greater
 
 ####The Best Implementation... For another Time
 
-The best algorithm for this solution would be to generate a part of speech distribution that is a probabilistic reflection of the training corpus. I will clarify through example:
-
-Meaning, writing the program in a way such that if the training corpus suggests:
+The best algorithm for this solution would be to generate a part of speech distribution that is a probabilistic reflection of the training corpus. Meaning, writing the program in a way such that if the training corpus suggests:
 
 ```
 for all verbs
@@ -121,7 +125,7 @@ The new song would reflect the same part of speech output as well. Maybe I can t
 
 ####The results
 
-The current output of my program is *okay*. A good portion of the output is grammatically correct, but still nonsensical. Some of the output would make more sense if there was more punctuation to clarify it's intent (more on this below).  Some of the output does not make any sense at all.  As it stands, the training corpus has ten songs.  I tested the output of the program on the addition of each song, one at a time, and the results gradually improved greatly. If I were to train the program using every song that Drake has ever released, I hypothesize that the output would be much better.
+The current output of my program is *okay*. A good portion of the output is grammatically correct, but still nonsensical. Some of the output would make more sense if there was more punctuation to clarify it's intent (more on this below).  Some of the output does not make any sense at all.  As it stands, the training corpus has ten songs.  I tested the output of the program on the addition of each song (starting from just one song, Take Care), one at a time, and the results gradually improved greatly. If I were to train the program using every song that Drake has ever released, I hypothesize that the output would be much better.
 
 ####Punctuation
 
