@@ -4,7 +4,7 @@ This program generates lyrics for [Drake's](https://play.spotify.com/artist/3TVX
 
 To run this program, cd into the directory and run `python generation.py`. Each run of the program will output a new song.
 
-If you'd like to test it out on other artists, replace the input(`oldsongs.txt`) with lyrics from any other artist. This program was created as a final project for New York University's [Natural Language Processing](http://cs.nyu.edu/courses/fall15/CSCI-UA.0480-006/) Course. 
+If you'd like to test it out on other artists, replace the input (`oldsongs.txt`) with lyrics from any other artist. This program was created as a final project for New York University's [Natural Language Processing](http://cs.nyu.edu/courses/fall15/CSCI-UA.0480-006/) Course. This project is also being presented at Spotify's [Monthly Music Hackathon](http://monthlymusichackathon.org/) (theme: lyrics and language). The presentation for that can be found in my [Talks repo](https://github.com/terriburns/Talks). 
 
 ##Songs
 
