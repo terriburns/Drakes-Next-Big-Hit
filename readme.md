@@ -36,7 +36,7 @@ These songs were picked because they are some of my favorite Drake songs. They a
 
 ##Background, Context, and Other Information
 
-####My approach & observations, as noted in `presentation.md`:
+####My approach & observations:
 
 1. I use NLTK to do part of speech tagging for each word in `oldsong.txt` (the lyrics).
 
