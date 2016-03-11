@@ -10,7 +10,7 @@ If you'd like to test it out on other artists, replace the input (`oldsongs.txt`
 
 ####The good stuff
 
-`oldsong.txt` is a training corpus that contains the lyrics to the following songs, in order (including title)
+`oldsong.txt` is a training corpus which contains the lyrics to the following songs, in order (including title)
 
 [Take Care](https://play.spotify.com/album/63WdJvk8G9hxJn8u5rswNh?play=true&utm_source=open.spotify.com&utm_medium=open), line 1
 
