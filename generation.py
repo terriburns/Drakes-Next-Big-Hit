@@ -179,7 +179,6 @@ def print_lyrics(lyrics):
       output.write("\n\n")
   output.close()
 
-
 def print_chorus(words_in_chorus, output):
   count = 0
   output.write("CHORUS:")
